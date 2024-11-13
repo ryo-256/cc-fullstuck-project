@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha tests/**/*.test.js --watch --reporter dot"
+    "test": "mocha tests/**/*.test.js --watch --reporter dot",
+    "dev": "nodemon ./src/index.js"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +18,7 @@
     "chai": "^4.5.0",
     "chai-http": "^4.4.0",
     "mocha": "^10.8.2",
+    "nodemon": "^2.0.22",
     "sinon": "^19.0.2"
   }
 }
