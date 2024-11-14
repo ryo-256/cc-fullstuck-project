@@ -1,6 +1,9 @@
 # personal files
 note.md
 
+# env files
+.env*
+
 # Logs
 logs
 *.log
