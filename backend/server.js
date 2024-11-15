@@ -1,5 +1,5 @@
 const express = require("express");
-const { findAll } = require("./models/bookModel");
+const { findAllBooks, findUserBooks } = require("./models/bookModel");
 
 const setupServer = () => {
   /**
@@ -18,8 +18,14 @@ const setupServer = () => {
 
   app.get("/api/books", async (req, res) => {
     try {
-      const books = await findAll();
-      res.status(200).json(books);
+      const userId = req.query.UserId;
+      if (userId) {
+        const books = await findUserBooks(userId);
+        res.status(200).json(books);
+      } else {
+        const books = await findAllBooks();
+        res.status(200).json(books);
+      }
     } catch (err) {
       res.status(500).json({ error: "Failed to get todos" });
     }
