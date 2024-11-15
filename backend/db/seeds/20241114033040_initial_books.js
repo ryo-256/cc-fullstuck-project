@@ -17,13 +17,25 @@ exports.seed = async function(knex) {
       id: 2,
       title: "Hackers and Painters",
       author: "Paul Graham",
-      cover_image_url: "https://covers.openlibrary.org/b/id/388913-L.jpg",
+      cover_image_url: "https://covers.openlibrary.org/b/id/388913-M.jpg",
     },
     {
       id: 3,
       title: "Learning Python",
       author: "Mark Lutz",
-      cover_image_url: "https://covers.openlibrary.org/b/id/14618670-L.jpg",
+      cover_image_url: "https://covers.openlibrary.org/b/id/14618670-M.jpg",
+    },
+    {
+      id: 4,
+      title: "ガリレオの苦悩",
+      author: "東野圭吾",
+      cover_image_url: "https://covers.openlibrary.org/b/id/8220595-M.jpg",
+    },
+    {
+      id: 5,
+      title: "銀河鉄道の夜",
+      author: "宮澤賢治",
+      cover_image_url: "https://covers.openlibrary.org/b/id/6913539-M.jpg",
     },
   ]);
 };
