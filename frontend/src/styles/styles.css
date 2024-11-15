@@ -1,0 +1,22 @@
+body {
+  margin: 0;
+}
+
+.navText {
+  color: blue;
+}
+
+.imageCell {
+  display: inline;
+  margin: 10px;
+}
+
+.image {
+  cursor: pointer;
+  width: 20%;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.single-photo {
+  width: 100%;
+}

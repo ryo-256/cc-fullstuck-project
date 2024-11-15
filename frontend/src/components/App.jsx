@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import "../styles/App.css";
+import "../styles/styles.css";
+import Navbar from "./Navbar";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [books, setBooks] = useState([]);
+  const [randomSelectedBooks, setRandomSelectedBooks] = useState([]);
+  //const [userId, setUserId] = useState(1);
+  const [currentView, setCurrentView] = useState("Home");
 
+  function setCurrentViewToHome() {
+    setCurrentView("Home");
+  }
+
+  useEffect(() => {
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    try {
+      const fetchAllBooks = async () => {
+        const res = await fetch(`${baseUrl}/api/books?UserId=1`);
+        if (!res.ok) {
+          throw new Error("error");
+        }
+        const data = await res.json();
+        setBooks(data);
+        setRandomSelectedBooks(data[Math.floor(Math.random() * data.length)]);
+      };
+      fetchAllBooks();
+    } catch (err) {
+      console.log(err);
+    }
+  }, []);
+
+  console.log(currentView);
   return (
     <>
+      <Navbar setCurrentViewToHome={setCurrentViewToHome} />
       <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>TODAY TSUNDOKU</h1>
+        <img className="image" src={randomSelectedBooks.cover_image_url} />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h2>MY TSUNDOKU COLLECTION</h2>
+      <ul>
+        {books.map(book => {
+          return (
+            <li className="imageCell" key={book.id}>
+              <img className="image" src={book.cover_image_url} alt="None" />
+            </li>
+          );
+        })}
+      </ul>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
