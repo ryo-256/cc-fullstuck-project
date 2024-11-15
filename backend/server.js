@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const { findAllBooks, findUserBooks } = require("./models/bookModel");
 
 const setupServer = () => {
@@ -8,6 +9,9 @@ const setupServer = () => {
 
   // expressアプリケーションを生成
   const app = express();
+
+  // すべてのオリジンからリクエストを許可する
+  app.use(cors());
 
   // jsonを使うためのミドルウェア
   app.use(express.json());
