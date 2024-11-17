@@ -1,3 +1,6 @@
+db_data/**
+!db_data/README.md
+
 # personal files
 note.md
 
