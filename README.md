@@ -14,10 +14,10 @@ Dockerがインストールされていることを確認してください。
 
 以下の順でセットアップを行ってください。
 
-1. リポジトリをクローンする　　
-    ` git clone https://github.com/ryo-256/cc-fullstuck-project.git `
-2. プロジェクトのディレクトリに移動する  
-    ` cd cc-fullstuck-project `
+1. リポジトリをクローンする
+- ` git clone https://github.com/ryo-256/cc-fullstuck-project.git `
+2. プロジェクトのディレクトリに移動する
+- ` cd cc-fullstuck-project `
 3. ディレクトリに docker-compose.yml が存在することを確認する
 4. ディレクトリに .env ファイルを作成する
     **`.env` の例**:
@@ -26,7 +26,7 @@ Dockerがインストールされていることを確認してください。
     POSTGRES_PASSWORD=password
     ```
 5. セットアップコマンドを実行する
-    ` docker-compose up --build `
+- ` docker-compose up --build `
 6. 下記にアクセスできることを確認する
-    - frontend: http://localhost:5173
-    - (backend: http://localhost:3000)
+- frontend: http://localhost:5173
+- (backend: http://localhost:3000)
