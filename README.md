@@ -7,6 +7,7 @@ Tsundoku Mission は、楽しく積読本を消化することができるアプ
 
 Dockerがインストールされていることを確認してください。
 - ` docker --version `
+
 インストールされていない場合は、[こちら](https://docs.docker.com/get-docker/)からインストールしてください。
 
 
