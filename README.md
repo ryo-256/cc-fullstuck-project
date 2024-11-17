@@ -14,9 +14,9 @@ Dockerがインストールされていることを確認してください。
 
 以下の順でセットアップを行ってください。
 
-1. リポジトリをクローンする
+1. リポジトリをクローンする　　
     ` git clone https://github.com/ryo-256/cc-fullstuck-project.git `
-2. プロジェクトのディレクトリに移動する
+2. プロジェクトのディレクトリに移動する  
     ` cd cc-fullstuck-project `
 3. ディレクトリに docker-compose.yml が存在することを確認する
 4. ディレクトリに .env ファイルを作成する
