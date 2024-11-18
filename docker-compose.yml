@@ -10,6 +10,8 @@ services:
       - "5432:5432"
     volumes:
       - ./db_data:/var/lib/postgresql/data
+    networks:
+      - app-network
   backend:
     build:
       context: ./backend
@@ -25,6 +27,8 @@ services:
       POSTGRES_DB: book_app
       POSTGRES_PORT: 5432
       EXPRESS_PORT: 3000
+    networks:
+      - app-network
   frontend:
     build:
       context: ./frontend
@@ -32,3 +36,11 @@ services:
       - "5173:5173"
     depends_on:
       - backend
+    networks:
+      - app-network
+    environment:
+      USE_DOCKER: 1
+
+networks:
+  app-network:
+    driver: bridge
