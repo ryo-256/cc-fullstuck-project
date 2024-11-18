@@ -5,6 +5,8 @@ import Navbar from "./Navbar";
 import Event from "./Event";
 import PastEvents from "./PastEvents";
 
+const baseUrl = import.meta.env.VITE_API_BASE_URL || "/api";
+
 function App() {
   const [books, setBooks] = useState([]);
   const [randomSelectedBooks, setRandomSelectedBooks] = useState([]);
@@ -25,7 +27,7 @@ function App() {
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      //const baseUrl = import.meta.env.VITE_API_BASE_URL;
       const res = await fetch(
         `${baseUrl}/api/user-books/${randomSelectedBooks.user_book_id}/events`,
         {
@@ -54,7 +56,7 @@ function App() {
   }
 
   async function getEvents(userBookId, book) {
-    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    //const baseUrl = import.meta.env.VITE_API_BASE_URL;
     const res = await fetch(`${baseUrl}/api/user-books/${userBookId}/events`);
     if (!res.ok) {
       throw new Error("error");
@@ -73,7 +75,7 @@ function App() {
   }
 
   useEffect(() => {
-    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    //const baseUrl = import.meta.env.VITE_API_BASE_URL;
     try {
       const fetchAllBooks = async () => {
         const res = await fetch(`${baseUrl}/api/users/1/books`);
