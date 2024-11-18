@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo "DB接続実行中..."
-until nc -z db 5432; do
+until pg_isready -h "$POSTGRES_HOST" -p "$POSTGRES_PORT" -U "$POSTGRES_USER"; do
     sleep 1
 done
 echo "DB接続完了"
@@ -17,7 +17,7 @@ EOL
 echo ".env.local file 作成完了！"
 
 echo "マイグレーションを実行中..."
-npm run migrate
+npm run migrate || { echo "マイグレーション失敗"; exit 1; }
 
 echo "シードデータを投入中..."
 npm run seed

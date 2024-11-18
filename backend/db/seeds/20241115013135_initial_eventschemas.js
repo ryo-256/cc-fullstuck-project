@@ -4,6 +4,7 @@
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
+  await knex("events").del();
   await knex("event_schemas").del();
   await knex("event_schemas").insert([
     {
