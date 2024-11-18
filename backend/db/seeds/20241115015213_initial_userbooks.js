@@ -31,4 +31,7 @@ exports.seed = async function(knex) {
       reading_status: 0,
     },
   ]);
+  await knex.raw(
+    "select setval(pg_get_serial_sequence('user_books', 'id'), MAX(id)) FROM user_books"
+  );
 };

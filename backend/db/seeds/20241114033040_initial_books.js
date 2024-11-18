@@ -4,8 +4,8 @@
  */
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
-  await knex("user_books").del();
   await knex("user_book_events").del();
+  await knex("user_books").del();
   await knex("books").del();
   await knex("books").insert([
     {
@@ -39,4 +39,7 @@ exports.seed = async function(knex) {
       cover_image_url: "https://covers.openlibrary.org/b/id/6913539-M.jpg",
     },
   ]);
+  await knex.raw(
+    "select setval(pg_get_serial_sequence('books', 'id'), MAX(id)) FROM books"
+  );
 };
