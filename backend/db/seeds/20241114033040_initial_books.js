@@ -5,6 +5,7 @@
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
   await knex("user_books").del();
+  await knex("user_book_events").del();
   await knex("books").del();
   await knex("books").insert([
     {

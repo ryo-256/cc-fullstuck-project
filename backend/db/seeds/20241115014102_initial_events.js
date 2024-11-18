@@ -15,20 +15,5 @@ exports.seed = async function(knex) {
         comment: "優れたコメントよりも明確な名前のほうが大切なんだなぁ",
       }),
     },
-    {
-      id: 2,
-      event_schemas_id: 1,
-      eventData_json: JSON.stringify({}),
-    },
-    {
-      id: 3,
-      event_schemas_id: 1,
-      eventData_json: JSON.stringify({}),
-    },
-    {
-      id: 4,
-      event_schemas_id: 1,
-      eventData_json: JSON.stringify({}),
-    },
   ]);
 };
