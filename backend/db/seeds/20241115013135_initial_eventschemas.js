@@ -18,4 +18,7 @@ exports.seed = async function(knex) {
       }),
     },
   ]);
+  await knex.raw(
+    "select setval(pg_get_serial_sequence('event_schemas', 'id'), MAX(id)) FROM event_schemas"
+  );
 };

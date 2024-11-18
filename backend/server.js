@@ -1,6 +1,11 @@
 const express = require("express");
 const cors = require("cors");
-const { findAllBooks, findUserBooks } = require("./models/bookModel");
+const {
+  findAllBooks,
+  findUserBooks,
+  createEvent,
+  findEvents,
+} = require("./models/bookModel");
 
 const setupServer = () => {
   /**
@@ -20,18 +25,40 @@ const setupServer = () => {
     res.send("hello world");
   });
 
-  app.get("/api/books", async (req, res) => {
+  app.get("/api/books/", async (req, res) => {
     try {
-      const userId = req.query.UserId;
-      if (userId) {
-        const books = await findUserBooks(userId);
-        res.status(200).json(books);
-      } else {
-        const books = await findAllBooks();
-        res.status(200).json(books);
-      }
+      const books = await findAllBooks();
+      res.status(200).json(books);
     } catch (err) {
-      res.status(500).json({ error: "Failed to get todos" });
+      res.status(500).json({ error: "Failed to get books" });
+    }
+  });
+
+  app.get("/api/users/:userId/books", async (req, res) => {
+    try {
+      const books = await findUserBooks(req.params.userId);
+      res.status(200).json(books);
+    } catch (err) {
+      res.status(500).json({ error: "Failed to get books" });
+    }
+  });
+
+  app.post("/api/user-books/:userBookId/events", async (req, res) => {
+    const userBookId = req.params.userBookId;
+    if (req.body.eventData_json) {
+      createEvent(userBookId, req.body);
+      res.status(201).end();
+    }
+    res.status(400).end();
+  });
+
+  app.get("/api/user-books/:userBookId/events", async (req, res) => {
+    const userBookId = req.params.userBookId;
+    try {
+      const events = await findEvents(userBookId);
+      res.status(200).json(events);
+    } catch {
+      res.status(500).json({ error: "Failed to get events" });
     }
   });
 
