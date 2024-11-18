@@ -22,7 +22,7 @@ const setupServer = () => {
   app.use(express.json());
 
   app.get("/", function(req, res) {
-    res.send("hello world");
+    res.send("Server Running...");
   });
 
   app.get("/api/books/", async (req, res) => {
