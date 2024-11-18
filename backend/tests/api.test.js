@@ -59,10 +59,10 @@ describe("APIにアクセスされたら処理を行う", () => {
       const res = await request.get("/api/users/1/books");
       res.should.be.json;
       JSON.parse(res.text).should.deep.equal([
-        allBooks[0],
-        allBooks[1],
-        allBooks[3],
-        allBooks[4],
+        { ...allBooks[0], user_book_id: 1 },
+        { ...allBooks[1], user_book_id: 2 },
+        { ...allBooks[3], user_book_id: 3 },
+        { ...allBooks[4], user_book_id: 4 },
       ]);
     });
   });
@@ -83,5 +83,10 @@ describe("APIにアクセスされたら処理を行う", () => {
       });
       res.should.have.status(201);
     });
+  });
+  it("リクエストが不正な場合、ステータスコード400を返す", async () => {
+    const res = await request.get("/api/user-books/2/events");
+    res.should.have.status(200);
+    console.log(res.text);
   });
 });

@@ -4,6 +4,7 @@ const {
   findAllBooks,
   findUserBooks,
   createEvent,
+  findEvents,
 } = require("./models/bookModel");
 
 const setupServer = () => {
@@ -49,6 +50,16 @@ const setupServer = () => {
       res.status(201).end();
     }
     res.status(400).end();
+  });
+
+  app.get("/api/user-books/:userBookId/events", async (req, res) => {
+    const userBookId = req.params.userBookId;
+    try {
+      const events = await findEvents(userBookId);
+      res.status(200).json(events);
+    } catch {
+      res.status(500).json({ error: "Failed to get events" });
+    }
   });
 
   return app;

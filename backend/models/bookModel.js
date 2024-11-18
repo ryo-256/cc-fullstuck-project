@@ -8,7 +8,7 @@ module.exports = {
     return knex("books")
       .join("user_books", "books.id", "=", "user_books.book_id")
       .where("user_books.user_id", userId)
-      .select("books.*");
+      .select("books.*", "user_books.id as user_book_id");
   },
   async createEvent(userBookId, eventData) {
     try {
@@ -25,5 +25,11 @@ module.exports = {
     } catch (err) {
       console.log(err);
     }
+  },
+  async findEvents(userBookId) {
+    return knex("user_book_events")
+      .select("events.*")
+      .join("events", "user_book_events.event_id", "=", "events.id")
+      .where("user_book_events.user_book_id", userBookId);
   },
 };

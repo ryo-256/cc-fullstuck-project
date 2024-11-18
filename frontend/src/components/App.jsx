@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import "../styles/App.css";
 import "../styles/styles.css";
 import Navbar from "./Navbar";
+import Event from "./Event";
+import PastEvents from "./PastEvents";
 
 function App() {
   const [books, setBooks] = useState([]);
@@ -13,13 +15,54 @@ function App() {
     reason: "",
     comment: ""
   });
+  const [selectedEvents, setSelectedEvents] = useState([]);
+  const [selectedBooks, setSelectedBooks] = useState("");
 
   function setCurrentViewToHome() {
     setCurrentView("Home");
   }
 
-  function handleSubmit() {
-    console.log("submit!");
+  async function handleSubmit(event) {
+    event.preventDefault();
+    try {
+      const baseUrl = import.meta.env.VITE_API_BASE_URL;
+      const res = await fetch(
+        `${baseUrl}/api/user-books/${randomSelectedBooks.user_book_id}/events`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            event_schemas_id: 1,
+            eventData_json: formData
+          })
+        }
+      );
+      if (!res.ok) {
+        throw new Error(`レスポンスステータス: ${res.status}`);
+      }
+      setFormData({
+        keyword: "",
+        reason: "",
+        comment: ""
+      });
+      setCurrentView("Home");
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
+  async function getEvents(userBookId, book) {
+    const baseUrl = import.meta.env.VITE_API_BASE_URL;
+    const res = await fetch(`${baseUrl}/api/user-books/${userBookId}/events`);
+    if (!res.ok) {
+      throw new Error("error");
+    }
+    const data = await res.json();
+    setSelectedEvents(data);
+    setCurrentView("pastEvents");
+    setSelectedBooks(book);
   }
 
   function updateFormData(e) {
@@ -33,7 +76,7 @@ function App() {
     const baseUrl = import.meta.env.VITE_API_BASE_URL;
     try {
       const fetchAllBooks = async () => {
-        const res = await fetch(`${baseUrl}/api/books?UserId=1`);
+        const res = await fetch(`${baseUrl}/api/users/1/books`);
         if (!res.ok) {
           throw new Error("error");
         }
@@ -55,7 +98,7 @@ function App() {
       {currentView === "Home" ? (
         <>
           <div>
-            <h1>TODAY TSUNDOKU</h1>
+            <h1>今日のチャレンジ本</h1>
             <img
               className="image"
               src={randomSelectedBooks.cover_image_url}
@@ -64,7 +107,7 @@ function App() {
               }}
             />
           </div>
-          <h2>MY TSUNDOKU COLLECTION</h2>
+          <h2>積読コレクション</h2>
           <ul>
             {books.map(book => {
               return (
@@ -73,61 +116,25 @@ function App() {
                     className="image"
                     src={book.cover_image_url}
                     alt="None"
+                    onClick={() => getEvents(book.user_book_id, book)}
                   />
                 </li>
               );
             })}
           </ul>
         </>
+      ) : currentView === "Event" ? (
+        <Event
+          randomSelectedBooks={randomSelectedBooks}
+          handleSubmit={handleSubmit}
+          formData={formData}
+          updateFormData={updateFormData}
+        />
       ) : (
-        <>
-          <div>
-            <h1>MISSION!</h1>
-            <div>制限時間以内に本の中から1つのキーワードを選択し入力せよ！</div>
-            <img
-              className="image"
-              src={randomSelectedBooks.cover_image_url}
-              onClick={() => {
-                setCurrentView("Event");
-              }}
-            />
-          </div>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>
-                keyword:
-                <input
-                  type="text"
-                  name="keyword"
-                  value={formData.keyword}
-                  onChange={updateFormData}
-                />
-              </label>
-            </div>
-            <div>
-              <label>
-                reason:
-                <input
-                  type="text"
-                  name="reason"
-                  value={formData.reason}
-                  onChange={updateFormData}
-                />
-              </label>
-            </div>
-            <div>
-              <label>
-                comment:
-                <textarea
-                  name="comment"
-                  value={formData.comment}
-                  onChange={updateFormData}
-                />
-              </label>
-            </div>
-            <button type="submit">Submit</button>
-          </form>
-        </>
+        <PastEvents
+          selectedBooks={selectedBooks}
+          selectedEvents={selectedEvents}
+        />
       )}
     </>
   );
