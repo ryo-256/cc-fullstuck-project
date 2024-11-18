@@ -1,12 +1,17 @@
-# Tsundoku Mission
+# 積読本チャレンジ
 
-Tsundoku Mission は、楽しく積読本を消化することができるアプリです。
+積読本チャレンジ は、楽しく積読本を消化することができるアプリです。
+
+
+## アプリの詳細
+- 積読本を登録すると、その中から今日読む本を自動で選出してくれます。これにより、何を読もうか迷う時間が無くなりすぐに読書を始められます
+- 今日読む本について簡単なイベントが発生します。これにより、読書の目的が明確化し、読書のモチベーションがよみがえります
 
 
 ## 事前準備
 
 Dockerがインストールされていることを確認してください。
-- ` docker --version `
+   ``` docker --version ```
 
 インストールされていない場合は、[こちら](https://docs.docker.com/get-docker/)からインストールしてください。
 
@@ -16,9 +21,9 @@ Dockerがインストールされていることを確認してください。
 以下の順でセットアップを行ってください。
 
 1. リポジトリをクローンする
-- ` git clone https://github.com/ryo-256/cc-fullstuck-project.git `
+   ```git clone https://github.com/ryo-256/cc-fullstuck-project.git ```
 2. プロジェクトのディレクトリに移動する
-- ` cd cc-fullstuck-project `
+   ```cd cc-fullstuck-project```
 3. ディレクトリに docker-compose.yml が存在することを確認する
 4. ディレクトリに .env ファイルを作成する
     **`.env` の例**:
@@ -27,7 +32,15 @@ Dockerがインストールされていることを確認してください。
     POSTGRES_PASSWORD=password
     ```
 5. セットアップコマンドを実行する
-- ` docker-compose up --build `
+``` docker-compose up --build ```
 6. 下記にアクセスできることを確認する
 - frontend: http://localhost:5173
 - (backend: http://localhost:3000)
+
+
+## 将来の計画
+- 積読本登録機能の実装
+   - ユーザが自由に本を登録できるようにする
+- ユーザの体調や気分に応じた、本のレコメンド機能の実装
+- 多様なイベントの追加
+   - 同じ本を持つユーザとの共同イベントなど
